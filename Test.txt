@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using CoreApp.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+
+namespace CoreApp.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UserController : ControllerBase
+    {
+        [HttpGet]
+        [Route("GetUserData")]
+        [Authorize(Policy =Policies.User)]
+        public IActionResult GetUserData()
+        {
+            return Ok("This is a response from User method");
+        }
+
+
+        [HttpGet]
+        [Route("GetAdminData")]
+        [Authorize(Policy = Policies.Admin)]
+        public IActionResult GetAdminData()
+        {
+            return Ok("This is a response from Admin method");
+        }
+
+        [HttpGet]
+        [Route("GetModeratorData")]
+        [Authorize(Policy = Policies.Moderator)]
+        public IActionResult GetModeratorData()
+        {
+            return Ok("This is a response from Moderator method");
+        }
+    }
+}
